@@ -7,11 +7,12 @@ using System.Threading;
 
 
 
-namespace arbolBB
+
+namespace Administracion_Alumnos
 {
     public class AVL
     {
-        public int valor;
+        public Registro valor;
         public AVL NodoIzquierdo;
         public AVL NodoDerecho;
         public AVL NodoPadre;
@@ -28,7 +29,7 @@ namespace arbolBB
             set { arbol = value; }
         }
         // Constructor.
-        public AVL(int valorNuevo, AVL izquierdo, AVL derecho, AVL padre)
+        public AVL(Registro valorNuevo, AVL izquierdo, AVL derecho, AVL padre)
         {
             valor = valorNuevo;
             NodoIzquierdo = izquierdo;
@@ -73,16 +74,20 @@ namespace arbolBB
         }
 
         //Funcion para insertar un nuevo valor en el arbol AVL
-        public AVL Insertar(int valorNuevo, AVL Raiz)
+        public AVL Insertar(Registro valorNuevo, AVL Raiz)
         {
             if (Raiz == null)
+            {
+
                 Raiz = new AVL(valorNuevo, null, null, null);
-            else if (valorNuevo < Raiz.valor)
+
+            }
+            else if (valorNuevo.id < Raiz.valor.id)
             {
                 Raiz.NodoIzquierdo = Insertar(valorNuevo, Raiz.NodoIzquierdo);
 
             }
-            else if (valorNuevo > Raiz.valor)
+            else if (valorNuevo.id > Raiz.valor.id)
             {
                 Raiz.NodoDerecho = Insertar(valorNuevo, Raiz.NodoDerecho);
 
@@ -98,7 +103,7 @@ namespace arbolBB
             //Realiza las rotaciones simples o dobles segun el caso
             if (Alturas(Raiz.NodoIzquierdo) - Alturas(Raiz.NodoDerecho) == 2)
             {
-                if (valorNuevo < Raiz.NodoIzquierdo.valor)
+                if (valorNuevo.id < Raiz.NodoIzquierdo.valor.id)
                     Raiz = RotacionIzquierdaSimple(Raiz);
                 else
                     Raiz = RotacionIzquierdaDoble(Raiz);
@@ -106,7 +111,7 @@ namespace arbolBB
 
             if (Alturas(Raiz.NodoDerecho) - Alturas(Raiz.NodoIzquierdo) == 2)
             {
-                if (valorNuevo > Raiz.NodoDerecho.valor)
+                if (valorNuevo.id > Raiz.NodoDerecho.valor.id)
                     Raiz = RotacionDerechaSimple(Raiz);
                 else
                     Raiz = RotacionDerechaDoble(Raiz);
@@ -133,13 +138,13 @@ namespace arbolBB
         }
 
         AVL nodoE, nodoP;
-        public AVL Eliminar(int valorEliminar, ref AVL Raiz)
+        public AVL Eliminar(Registro valorEliminar, ref AVL Raiz)
         {
 
             if (Raiz != null)
             {
 
-                if (valorEliminar < Raiz.valor)
+                if (valorEliminar.id < Raiz.valor.id)
                 {
 
                     nodoE = Raiz;
@@ -147,7 +152,7 @@ namespace arbolBB
                 }
                 else
                 {
-                    if (valorEliminar > Raiz.valor)
+                    if (valorEliminar.id > Raiz.valor.id)
                     {
 
 
@@ -166,7 +171,7 @@ namespace arbolBB
                             if (Alturas(nodoE.NodoIzquierdo) - Alturas(nodoE.NodoDerecho) == 2)
                             {
                                 //MessageBox.Show("nodoE" + nodoE.valor.ToString());
-                                if (valorEliminar < nodoE.valor)
+                                if (valorEliminar.id < nodoE.valor.id)
                                     nodoP = RotacionIzquierdaSimple(nodoE);
                                 else
                                     nodoE = RotacionDerechaSimple(nodoE);
@@ -174,7 +179,7 @@ namespace arbolBB
 
                             if (Alturas(nodoE.NodoDerecho) - Alturas(nodoE.NodoIzquierdo) == 2)
                             {
-                                if (valorEliminar > nodoE.NodoDerecho.valor)
+                                if (valorEliminar.id > nodoE.NodoDerecho.valor.id)
                                     nodoE = RotacionDerechaSimple(nodoE);
                                 else
                                     nodoE = RotacionDerechaDoble(nodoE);
@@ -364,18 +369,18 @@ namespace arbolBB
 
 
         //Buscar un valor en el arbol
-        public void buscar(int valorBuscar, AVL Raiz)
+        public void buscar(Registro valorBuscar, AVL Raiz)
         {
             if (Raiz != null)
             {
 
-                if (valorBuscar < Raiz.valor)
+                if (valorBuscar.id < Raiz.valor.id)
                 {
                     buscar(valorBuscar, Raiz.NodoIzquierdo);
                 }
                 else
                 {
-                    if (valorBuscar > Raiz.valor)
+                    if (valorBuscar.id > Raiz.valor.id)
                     {
                         buscar(valorBuscar, Raiz.NodoDerecho);
                     }
@@ -500,7 +505,7 @@ namespace arbolBB
             Radio, Radio);
 
 
-            if (valor == dato)
+            if (valor.id == dato)
             {
                 grafo.FillEllipse(encuentro, rect);
 

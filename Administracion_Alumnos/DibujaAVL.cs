@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace arbolBB
+namespace Administracion_Alumnos
 {
     public class DibujaAVL
     {
@@ -52,7 +52,7 @@ namespace arbolBB
 
         // Agrega un nuevo valor al arbol.   
 
-        public void Insertar(int dato)
+        public void Insertar(Registro dato)
         {
             if (Raiz == null)
                 Raiz = new AVL(dato, null, null, null);
@@ -62,7 +62,7 @@ namespace arbolBB
         }
 
         //Eliminar un valor del arbol
-        public void Eliminar(int dato)
+        public void Eliminar(Registro dato)
         {
             if (Raiz == null)
                 Raiz = new AVL(dato, null, null, null);
@@ -149,7 +149,7 @@ namespace arbolBB
             {
                 Raiz.colorear(grafo, fuente, entorno, RellenoFuente, Lapiz);
 
-                if (busqueda < Raiz.valor)
+                if (busqueda < Raiz.valor.id)
                 {
                     Thread.Sleep(500);
                     Raiz.colorear(grafo, fuente, entorno, Brushes.Blue, Lapiz);
@@ -157,7 +157,7 @@ namespace arbolBB
                 }
                 else
                 {
-                    if (busqueda > Raiz.valor)
+                    if (busqueda > Raiz.valor.id)
                     {
                         Thread.Sleep(500);
                         Raiz.colorear(grafo, fuente, entorno, RellenoFuente, Lapiz);
@@ -204,7 +204,7 @@ namespace arbolBB
             y2 = 75;
         }
 
-        public void buscar(int x)
+        public void buscar(Registro x)
         {
             if (Raiz == null)
                 MessageBox.Show("Arbol AVL Vac�o", "Error", MessageBoxButtons.OK);
